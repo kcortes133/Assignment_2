@@ -6,3 +6,20 @@
 
 import operator
 from functools import reduce
+import networkCreation, fileParsing, stats
+
+def main():
+    inputF = 'input.gmt.txt'
+    stringF = 'STRING.txt'
+
+    # read in networks
+    lociNetwork = fileParsing.readInput(inputF)
+    coFNetwork = fileParsing.makeInteractionNetwork(stringF)
+
+    # create subnetworks  5000 loci, 1000 coF
+    networkCreation.createSubnetwork(lociNetwork)
+
+
+    # calc edge density
+    # calc statistical significance
+

@@ -2,6 +2,9 @@
 # Date: September 29, 2021
 # Purpose: get data from input and STRING files
 
+import operator
+from functools import reduce
+
 
 # assumptions:
 #   input is tab delimited
@@ -21,7 +24,7 @@
 #   @param fileIn file with genes to be read in
 #   @param asLoci bool of whether to have list of loci lists or just one list
 #   @return genes list of genes
-def readInput(fileIn, asLoci):
+def readInput(fileIn, asLoci=True):
     # read in GMT file
     # separate file into list by tabs
     fI = open(fileIn, 'r')
@@ -67,3 +70,46 @@ def makeInteractionNetwork(stringFile):
                 interactions[gene1] = {gene2: weight}
     return interactions
 
+
+#   @param   genes list of genes to check interactions for (gotten from readInput(file))
+#   @param   interactionsNetwork dict of protein-protein interactions from makeInteractionNetwork(stringFile)
+#   @returns geneInteractions dict of gene interactions from input GMT file
+def makeNetwork(genes, interactionsNetwork):
+    geneInteractions = {}
+    genes = reduce(operator.add, genes)
+    for gene1 in genes:
+        # input gene1 check if connected to any other gene
+        geneInteractions[gene1] = {}
+        if gene1 in interactionsNetwork:
+            for gene2 in genes:
+                if gene2 in interactionsNetwork[gene1]:
+                    if gene2 in genes:
+                        # make sure not to duplicate edges
+                        #if gene1 not in geneInteractions[gene2]:
+                        geneInteractions[gene1][gene2] = interactionsNetwork[gene1][gene2]
+    return geneInteractions
+
+# Limitations:
+#   large gene interaction dictionaries will take a long time to process
+#   SIF files dont give weight information beyone naming them with string
+#
+#   @param   geneInteractions dictionary of gene interactions generated from makeNetwork()
+#   @param   outF string file name to write gene interactions dictionary to
+#   @returns nothing
+def makeNetworkSIF(geneInteractions, outF):
+    sifFile = open(outF, 'w')
+    sifFile.write('Gene1' + '\t' + 'weight' + '\t' + 'Gene2' + '\n')
+    countN = 0
+
+    for gene in geneInteractions:
+        # if gene has no interactions write without edges
+        if not geneInteractions[gene]:
+            sifFile.write(gene + '\n')
+            countN += 1
+        # otherwise write genes with interactions in same line
+        else:
+            for interaction in geneInteractions[gene]:
+                weight = geneInteractions[gene][interaction]
+                sifFile.write(gene + '\t' + weight +'\t' + interaction + '\n')
+    sifFile.close()
+    return
