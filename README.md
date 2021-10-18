@@ -1,5 +1,21 @@
 # Statistical Significance of Genetic Functional Networks Using Edge Density 
 
+## Description
+Input is two tab-delimited files named 'Input.gmt' and 'STRING.txt'. Input.gmt is a 
+tab-delimited file formatted as Broad Institute’s Gene Matrix Transformed (GMT). STRING.txt 
+is a version of the STRING database of known and predicted protein-protein interactions. 
+Each line in the string file represents an edge in the network between the protein genes 
+formatted protein'\t'protein'\t'weight'\n' where weight is the strength of their functional 
+similarity. 
+Random subnetworks are created from the Input.gmt.txt file where there is one random node
+picked from each loci. For each node in the loci subnetwork an equivalent node in the 
+STRING database is picked. Equivalent nodes from the STRING database are determined by 
+organizing the nodes into quantile bins based on their edge density and picking a node 
+that has a similar density to the one in the loci subnetwork.
+These subnetworks are then compared for statistical significance to determine if the genes
+chosen from the loci subnetwork are more functionally connected than a random set of genes.
+This is done by computing the empirical p-value based on the subnetworks densities.
+
 ## Goal
 Compute the statistical significance of a population of subnetworks from a 
 set of FA loci compared to the STRING database. 
@@ -16,7 +32,7 @@ import scipy
 ```
 #### Command Line Usage
 ```commandline
-$ python main.py Input.gmt.txt STRING.txt 
+$ python main.py Input.gmt.txt --interactions STRING.txt 
 $ python main.py yourInputFile.gmt.txt
 ```
 

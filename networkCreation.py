@@ -3,7 +3,6 @@
 # Purpose: Create subnetworks and full network from FA loci genes and STRING database
 
 import random, math
-import fileParsing
 
 # @param numNetworks
 # @param fullNetwork

@@ -4,11 +4,8 @@
 #   create a sub network of the gene interactions from the input file using the STRING file
 #   get statistical significance
 
-import operator
-from functools import reduce
 import argparse, logging
 import networkCreation, fileParsing, statistics
-from scipy import stats
 
 # arguments:
 #   - input file
