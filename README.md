@@ -8,10 +8,16 @@ set of FA loci compared to the STRING database.
 scipy
 
 ## Usage
+#### Python Usage
 ```python
 import operator
 from functools import reduce
 import scipy
+```
+#### Command Line Usage
+```commandline
+$ python main.py Input.gmt.txt STRING.txt 
+$ python main.py yourInputFile.gmt.txt
 ```
 
 ## Input
