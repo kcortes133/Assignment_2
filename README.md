@@ -30,6 +30,10 @@ import operator
 from functools import reduce
 import scipy
 ```
+![Edge D](https://user-images.githubusercontent.com/22487858/137661678-cd0c0dc0-4d54-464b-87da-6f06d4db9bd6.png)
+![Edges per nodes](https://user-images.githubusercontent.com/22487858/137661693-57dc8b4d-4611-4668-b0fe-0042d407f476.png)
+
+
 #### Command Line Usage
 ```commandline
 $ python main.py Input.gmt.txt --interactions STRING.txt 
