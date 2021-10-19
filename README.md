@@ -33,8 +33,9 @@ import scipy
 
 #### Command Line Usage
 ```commandline
-$ python main.py Input.gmt.txt --interactions STRING.txt 
 $ python main.py yourInputFile.gmt.txt
+$ python main.py Input.gmt.txt --interactions STRING.txt 
+$ python main.py yourInputFile.gmt.txt --numBins 100 --numSubnetworks 1000
 ```
 #### Example Figure of Subnetwork Densities
 ![pval edge densityies](https://user-images.githubusercontent.com/22487858/137910105-d4a6deab-ab47-49ea-b379-22f4956b8986.png)
