@@ -36,10 +36,10 @@ import scipy
 $ python main.py Input.gmt.txt --interactions STRING.txt 
 $ python main.py yourInputFile.gmt.txt
 ```
-Example Figure of Subnetwork Densities
+#### Example Figure of Subnetwork Densities
 ![pval edge densityies](https://user-images.githubusercontent.com/22487858/137910105-d4a6deab-ab47-49ea-b379-22f4956b8986.png)
 
-Example Figure of P-Val and Random Subnetwork Density Distribution
+#### Example Figure of P-Val and Random Subnetwork Density Distribution
 ![pval](https://user-images.githubusercontent.com/22487858/137910088-39abf6ee-49b9-40ae-99a0-4b248dac8abf.png)
 
 ## Input
