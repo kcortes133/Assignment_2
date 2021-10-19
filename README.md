@@ -55,5 +55,7 @@ $ python main.py yourInputFile.gmt.txt --numBins 100 --numSubnetworks 1000
 - each line represents an edge in network between two genes
 - weighted by strength of functional similarity
 
-## Output
-p values for subnetworks
+## Output 
+P-Value for edge density distribution of the subnetworks. Edge density histogram  for the two networks.
+Edge density histogram for the random subnetworks with a dashed line showing the average edge density
+for the FA loci subnetworks and the corresponding p-value.

@@ -3,7 +3,6 @@
 # Purpose: Different possible statistical tests for networks and subnetworks
 
 import matplotlib.pyplot as plt
-import numpy as np
 
 
 # edge density defined in the paper as edge count

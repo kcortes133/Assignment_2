@@ -47,8 +47,11 @@ def main():
     # make coFunctional random subnetworks
     coFSubnetworks = networkCreation.makeCoFSubnetworks(interactions, qNetworkBins, lociSubN)
 
-    statistics.empiricalPVal(lociSubN, coFSubnetworks)
+    # calculate the pvalue
+    # probability edges using cof distribution is greater than avg of loci edged divided by # of random networks
+    pval = statistics.empiricalPVal(lociSubN, coFSubnetworks)
 
+    # make a graph showing the edge density distributions
     coFDensities = []
     for network in coFSubnetworks:
         coFDensities.append(statistics.calcEdgeDensity(network))
@@ -57,8 +60,7 @@ def main():
     for network in lociSubN:
         lociDensities.append(statistics.calcEdgeDensity(network))
 
-    # probability edges using cof distribution is greater than avg of loci edged divided by # of random networks
-    pval = statistics.overlappingHistogram(coFDensities, lociDensities)
+    statistics.overlappingHistogram(coFDensities, lociDensities)
 
     print('P-val : ', pval)
 
