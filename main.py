@@ -21,11 +21,11 @@ parser.add_argument('genesFile', metavar='genes', type=str, default='Input.gmt.t
                     help='the input file of genes')
 parser.add_argument('--interactionsFile', metavar='gene_interactions', type=str, default='STRING.txt',
                     help='the input file of gene interactions')
-#parser.add_argument('--sum', dest='binType', action='store_const',
-#                    default='fixed',
-#                    help='binning type quantile or fixed (default: quantile)')
+parser.add_argument('--numBins', type=int, default=128, help='the number of bins to separate edge densities into')
+parser.add_argument('--numSubnetworks', type=int, default=5000, help='the number of subnetworks to make')
 
 args = parser.parse_args()
+print(args)
 
 def main():
     #inputF = 'input.gmt.txt'
@@ -37,9 +37,9 @@ def main():
     network = fileParsing.makeNetwork(lociLists, interactions)
 
     # make loci subnetworks
-    lociSubN = networkCreation.makeLociSubnetworks(5000, network, lociLists)
+    lociSubN = networkCreation.makeLociSubnetworks(args.numSubnetworks, network, lociLists)
 
-    numBins = 128
+    numBins = args.numBins
     # make bins for coFunctional subnetwork creation
     qNetworkBins = networkCreation.makeQuantileBins(interactions, numBins)
     # fNetworkBins = makeFixedBins(interactions, numBins)
@@ -57,9 +57,9 @@ def main():
     for network in lociSubN:
         lociDensities.append(statistics.calcEdgeDensity(network))
 
-    statistics.overlappingHistogram(coFDensities, lociDensities)
-
-    # permutation p-val
     # probability edges using cof distribution is greater than avg of loci edged divided by # of random networks
+    pval = statistics.overlappingHistogram(coFDensities, lociDensities)
+
+    print('P-val : ', pval)
 
 main()
