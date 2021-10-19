@@ -22,13 +22,51 @@ set of FA loci compared to the STRING database.
 
 ## Install
 scipy
+matplotlib.pyplot
+operator
+functools 
 
 ## Usage
 #### Python Usage
 ```python
-import operator
-from functools import reduce
-import scipy
+import networkCreation, fileParsing, statistics
+
+    #inputF = 'input.gmt.txt'
+    #stringF = 'STRING.txt'
+
+    # read in networks
+    lociLists = fileParsing.readInput(args.genesFile)
+    interactions = fileParsing.makeInteractionNetwork(args.interactionsFile)
+    network = fileParsing.makeNetwork(lociLists, interactions)
+
+    # make loci subnetworks
+    lociSubN = networkCreation.makeLociSubnetworks(args.numSubnetworks, network, lociLists)
+
+    numBins = args.numBins
+    # make bins for coFunctional subnetwork creation
+    qNetworkBins = networkCreation.makeQuantileBins(interactions, numBins)
+    # fNetworkBins = makeFixedBins(interactions, numBins)
+
+    # make coFunctional random subnetworks
+    coFSubnetworks = networkCreation.makeCoFSubnetworks(interactions, qNetworkBins, lociSubN)
+
+    # calculate the pvalue
+    # probability edges using cof distribution is greater than avg of loci edged divided by # of random networks
+    pval = statistics.empiricalPVal(lociSubN, coFSubnetworks)
+
+    # make a graph showing the edge density distributions
+    coFDensities = []
+    for network in coFSubnetworks:
+        coFDensities.append(statistics.calcEdgeDensity(network))
+
+    lociDensities = []
+    for network in lociSubN:
+        lociDensities.append(statistics.calcEdgeDensity(network))
+
+    statistics.overlappingHistogram(coFDensities, lociDensities)
+
+    print('P-val : ', pval)
+
 ```
 
 #### Command Line Usage
