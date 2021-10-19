@@ -31,41 +31,41 @@ functools
 ```python
 import networkCreation, fileParsing, statistics
 
-    #inputF = 'input.gmt.txt'
-    #stringF = 'STRING.txt'
+inputF = 'input.gmt.txt'
+stringF = 'STRING.txt'
 
-    # read in networks
-    lociLists = fileParsing.readInput(args.genesFile)
-    interactions = fileParsing.makeInteractionNetwork(args.interactionsFile)
-    network = fileParsing.makeNetwork(lociLists, interactions)
+# read in networks
+lociLists = fileParsing.readInput(inputF)
+interactions = fileParsing.makeInteractionNetwork(stringF)
+network = fileParsing.makeNetwork(lociLists, interactions)
 
-    # make loci subnetworks
-    lociSubN = networkCreation.makeLociSubnetworks(args.numSubnetworks, network, lociLists)
+# make loci subnetworks
+lociSubN = networkCreation.makeLociSubnetworks(5000, network, lociLists)
 
-    numBins = args.numBins
-    # make bins for coFunctional subnetwork creation
-    qNetworkBins = networkCreation.makeQuantileBins(interactions, numBins)
-    # fNetworkBins = makeFixedBins(interactions, numBins)
+numBins = 128
+# make bins for coFunctional subnetwork creation
+qNetworkBins = networkCreation.makeQuantileBins(interactions, numBins)
+# fNetworkBins = makeFixedBins(interactions, numBins)
 
-    # make coFunctional random subnetworks
-    coFSubnetworks = networkCreation.makeCoFSubnetworks(interactions, qNetworkBins, lociSubN)
+# make coFunctional random subnetworks
+coFSubnetworks = networkCreation.makeCoFSubnetworks(interactions, qNetworkBins, lociSubN)
 
-    # calculate the pvalue
-    # probability edges using cof distribution is greater than avg of loci edged divided by # of random networks
-    pval = statistics.empiricalPVal(lociSubN, coFSubnetworks)
+# calculate the pvalue
+# probability edges using cof distribution is greater than avg of loci edged divided by # of random networks
+pval = statistics.empiricalPVal(lociSubN, coFSubnetworks)
 
-    # make a graph showing the edge density distributions
-    coFDensities = []
-    for network in coFSubnetworks:
-        coFDensities.append(statistics.calcEdgeDensity(network))
+# make a graph showing the edge density distributions
+coFDensities = []
+for network in coFSubnetworks:
+    coFDensities.append(statistics.calcEdgeDensity(network))
 
-    lociDensities = []
-    for network in lociSubN:
-        lociDensities.append(statistics.calcEdgeDensity(network))
+lociDensities = []
+for network in lociSubN:
+    lociDensities.append(statistics.calcEdgeDensity(network))
 
-    statistics.overlappingHistogram(coFDensities, lociDensities)
+statistics.overlappingHistogram(coFDensities, lociDensities)
 
-    print('P-val : ', pval)
+print('P-val : ', pval)
 
 ```
 
