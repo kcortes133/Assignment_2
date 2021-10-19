@@ -88,28 +88,3 @@ def makeNetwork(genes, interactionsNetwork):
                         #if gene1 not in geneInteractions[gene2]:
                         geneInteractions[gene1][gene2] = interactionsNetwork[gene1][gene2]
     return geneInteractions
-
-# Limitations:
-#   large gene interaction dictionaries will take a long time to process
-#   SIF files dont give weight information beyone naming them with string
-#
-#   @param   geneInteractions dictionary of gene interactions generated from makeNetwork()
-#   @param   outF string file name to write gene interactions dictionary to
-#   @returns nothing
-def makeNetworkSIF(geneInteractions, outF):
-    sifFile = open(outF, 'w')
-    sifFile.write('Gene1' + '\t' + 'weight' + '\t' + 'Gene2' + '\n')
-    countN = 0
-
-    for gene in geneInteractions:
-        # if gene has no interactions write without edges
-        if not geneInteractions[gene]:
-            sifFile.write(gene + '\n')
-            countN += 1
-        # otherwise write genes with interactions in same line
-        else:
-            for interaction in geneInteractions[gene]:
-                weight = geneInteractions[gene][interaction]
-                sifFile.write(gene + '\t' + weight +'\t' + interaction + '\n')
-    sifFile.close()
-    return

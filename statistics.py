@@ -11,7 +11,7 @@ import numpy as np
 #   default set to false
 # @param network
 # @param avgDensity=False
-def calcEdgeDensity(network, avgDensity=False):
+def calcEdgeDensity(network):
     density = 0
 
     # each edge is represented twice so
@@ -19,8 +19,6 @@ def calcEdgeDensity(network, avgDensity=False):
         density += len(network[node])
     density = density/2
 
-    if avgDensity:
-        density = density/len(network)
 
     return density
 
@@ -49,9 +47,35 @@ def overlappingHistogram(dens1, dens2):
 # @param subNetworks
 # @param fullNetwork
 # @param loci
-def empiricalPVal(subNetworks, fullNetwork, loci):
-    # //TODO
+def empiricalPVal(lociSubN, coFSubN):
     # use avg density of final population in random trial
     # P value representing fraction of random trials producing final pop of subnetworks
     # with higher avg density than the avg density seen with true loci inputs
-    return
+    lociDensity = 0
+    for subNet in lociSubN:
+        # calculate the edge density
+        tempLD = calcEdgeDensity(subNet)
+        lociDensity += tempLD
+    lociDensity = lociDensity/len(lociSubN)
+
+    coFDensities = []
+    for coF in coFSubN:
+        coFDensities.append(calcEdgeDensity(coF))
+
+    coFDensities = sorted(coFDensities)
+    pos = 0
+    densPos = 0
+    for c in coFDensities:
+        if c <=lociDensity:
+            p = pos
+            densPos = c
+        pos +=1
+
+    pval = p/len(coFDensities)
+    plt.hist(coFDensities)
+    plt.axvline(densPos, color='k', linestyle='dashed', linewidth=1)
+    plt.title('Empirical P-Value')
+    min_ylim, max_ylim = plt.ylim()
+    plt.text(lociDensity, max_ylim*0.9, 'Pval = '+ str(pval))
+    plt.show()
+    return pval

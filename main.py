@@ -21,9 +21,9 @@ parser.add_argument('genesFile', metavar='genes', type=str, default='Input.gmt.t
                     help='the input file of genes')
 parser.add_argument('--interactionsFile', metavar='gene_interactions', type=str, default='STRING.txt',
                     help='the input file of gene interactions')
-#parser.add_argument('--sum', dest='accumulate', action='store_const',
-#                    const=sum, default=max,
-#                    help='sum the integers (default: find the max)')
+#parser.add_argument('--sum', dest='binType', action='store_const',
+#                    default='fixed',
+#                    help='binning type quantile or fixed (default: quantile)')
 
 args = parser.parse_args()
 
@@ -46,6 +46,8 @@ def main():
 
     # make coFunctional random subnetworks
     coFSubnetworks = networkCreation.makeCoFSubnetworks(interactions, qNetworkBins, lociSubN)
+
+    statistics.empiricalPVal(lociSubN, coFSubnetworks)
 
     coFDensities = []
     for network in coFSubnetworks:
