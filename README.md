@@ -30,15 +30,17 @@ import operator
 from functools import reduce
 import scipy
 ```
-![Edge D](https://user-images.githubusercontent.com/22487858/137661678-cd0c0dc0-4d54-464b-87da-6f06d4db9bd6.png)
-![Edges per nodes](https://user-images.githubusercontent.com/22487858/137661693-57dc8b4d-4611-4668-b0fe-0042d407f476.png)
-
 
 #### Command Line Usage
 ```commandline
 $ python main.py Input.gmt.txt --interactions STRING.txt 
 $ python main.py yourInputFile.gmt.txt
 ```
+Example Figure of Subnetwork Densities
+![pval edge densityies](https://user-images.githubusercontent.com/22487858/137910105-d4a6deab-ab47-49ea-b379-22f4956b8986.png)
+
+Example Figure of P-Val and Random Subnetwork Density Distribution
+![pval](https://user-images.githubusercontent.com/22487858/137910088-39abf6ee-49b9-40ae-99a0-4b248dac8abf.png)
 
 ## Input
 1. Input.gmt
