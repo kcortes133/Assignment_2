@@ -1,6 +1,5 @@
 # Statistical Significance of Genetic Functional Networks Using Edge Density 
 
-## Description
 Input is two tab-delimited files named 'Input.gmt' and 'STRING.txt'. Input.gmt is a 
 tab-delimited file formatted as Broad Institute’s Gene Matrix Transformed (GMT). STRING.txt 
 is a version of the STRING database of known and predicted protein-protein interactions. 

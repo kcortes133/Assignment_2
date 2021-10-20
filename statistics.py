@@ -50,6 +50,8 @@ def empiricalPVal(lociSubN, coFSubN):
     # use avg density of final population in random trial
     # P value representing fraction of random trials producing final pop of subnetworks
     # with higher avg density than the avg density seen with true loci inputs
+
+    # get average network density for all loci networks
     lociDensity = 0
     for subNet in lociSubN:
         # calculate the edge density
@@ -57,10 +59,13 @@ def empiricalPVal(lociSubN, coFSubN):
         lociDensity += tempLD
     lociDensity = lociDensity/len(lociSubN)
 
+    # get network densities for all coF subnetworks
     coFDensities = []
     for coF in coFSubN:
         coFDensities.append(calcEdgeDensity(coF))
 
+    # calculate p-val by using cof (null analysis) density distribution
+    # and avg loci density
     coFDensities = sorted(coFDensities)
     pos = 0
     densPos = 0
@@ -71,6 +76,9 @@ def empiricalPVal(lociSubN, coFSubN):
         pos +=1
 
     pval = p/len(coFDensities)
+
+    # plot a histogram of cof density distribution and avd loci density
+    # put pval next to avg loci dashed line
     plt.hist(coFDensities)
     plt.axvline(densPos, color='k', linestyle='dashed', linewidth=1)
     plt.title('Empirical P-Value')

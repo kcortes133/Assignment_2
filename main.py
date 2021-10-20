@@ -39,6 +39,7 @@ def main():
     # make loci subnetworks
     lociSubN = networkCreation.makeLociSubnetworks(args.numSubnetworks, network, lociLists)
 
+
     numBins = args.numBins
     # make bins for coFunctional subnetwork creation
     qNetworkBins = networkCreation.makeQuantileBins(interactions, numBins)

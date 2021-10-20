@@ -47,6 +47,7 @@ def makeFixedBins(fullNetwork, numBins):
     # sort dict by values
     # 128 bins like in paper -> equally spaced
 
+    # sort nodes by number of edges
     networkSorted = sorted(fullNetwork, key=lambda k: len(fullNetwork[k]), reverse=False)
     maxEdges = len(fullNetwork[networkSorted[-1]])
     binSize = round(maxEdges/numBins)
@@ -54,6 +55,8 @@ def makeFixedBins(fullNetwork, numBins):
     for i in range(numBins):
         fullNetworkBins.append([])
 
+    # put nodes in bins according to edge number
+    # bins can be variable sizes
     for node in networkSorted:
         nodeDensity = len(fullNetwork[node])
         nodeBin = math.floor(nodeDensity/binSize)
@@ -71,10 +74,13 @@ def makeQuantileBins(fullNetwork, numBins):
     # sort dict by values
     # 128 bins like in paper -> equally spaced
 
+    # sort nodes by number of edges
     networkSorted = sorted(fullNetwork, key=lambda k: len(fullNetwork[k]), reverse=False)
     numNodes = len(fullNetwork)
     binSize = round(numNodes/numBins)
 
+    # make each bin the same size
+    # nodes in bins according to numbder of edges
     for i in range(numBins):
         binStart = i*binSize
         binEnd = (i+1)*binSize
