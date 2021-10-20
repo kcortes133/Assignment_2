@@ -20,10 +20,10 @@ Compute the statistical significance of a population of subnetworks from a
 set of FA loci compared to the STRING database. 
 
 ## Install
-scipy
-matplotlib.pyplot
-operator
-functools 
+- scipy
+- matplotlib.pyplot
+- operator
+- functools 
 
 ## Usage
 #### Python Usage
