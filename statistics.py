@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 # edge density defined in the paper as edge count
 # bool avgDensity if want avg num of edges/node -> good if networks have diff num of nodes
 #   default set to false
-# @param network
-# @param avgDensity=False
+# @param network: network dictionary with gene nodes and interactions edges
+# @returns density: number of edges in network
 def calcEdgeDensity(network):
     density = 0
 
@@ -23,7 +23,7 @@ def calcEdgeDensity(network):
 
 
 # @param densities
-# @displays
+# @displays histogram of densities
 def histogram(densities):
     # Plot Histogram on x
     plt.hist(densities)
@@ -32,8 +32,9 @@ def histogram(densities):
     return
 
 
-# @param dens1
-# @param dens2
+# @param dens1: list of density distribution
+# @param dens2: list of different density distribution
+# @displays histogram of the two densities
 def overlappingHistogram(dens1, dens2):
 
     # Plot Histogram on x
@@ -43,9 +44,9 @@ def overlappingHistogram(dens1, dens2):
     plt.show()
 
 
-# @param subNetworks
-# @param fullNetwork
-# @param loci
+# @param lociSubN: list of loci subnetworks dictionaries
+# @param coFSubN: list of cofunctional subnetworks dictionaries
+# @returns pval: int pval for loci subnetworks with cofunctional subnetworks as null hypothesis
 def empiricalPVal(lociSubN, coFSubN):
     # use avg density of final population in random trial
     # P value representing fraction of random trials producing final pop of subnetworks

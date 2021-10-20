@@ -4,10 +4,10 @@
 
 import random, math
 
-# @param numNetworks
-# @param fullNetwork
-# @param lociLists
-# @returns subnetworks
+# @param numNetworks number of subnetworks to make from the locilists
+# @param fullNetwork gene:gene interactions dictionary
+# @param lociLists list of lists where each sublist is the genes at one loci
+# @returns subnetworks list of the loci subnetwork dictionaries
 def makeLociSubnetworks(numNetworks, fullNetwork, lociLists):
     subNetworks = []
     for i in range(numNetworks):
@@ -15,9 +15,9 @@ def makeLociSubnetworks(numNetworks, fullNetwork, lociLists):
     return subNetworks
 
 
-# @param fullNetwork
-# @param lociLists
-# @returns subNetwork
+# @param fullNetwork: gene:gene intearctions dictionary
+# @param lociLists: list of lists where each sublist is the genes at one loci
+# @returns subNetwork: dictionary subnetwork of loci network with one random gene from each loci
 def createSubnetwork(fullNetwork, lociLists):
     subNetwork = {}
     # for loci in network:
@@ -39,8 +39,9 @@ def createSubnetwork(fullNetwork, lociLists):
 
 
 # limitations: once you get higher the bins get more empty
-# @param fullNetwork
-# @return numBins
+# @param fullNetwork: gene:gene intearctions dictionary
+# @param numBins: number of bins to separate the bins into by edge density
+# @return numBins: nodes from fullNetwork organized into bins
 def makeFixedBins(fullNetwork, numBins):
     fullNetworkBins = []
     # dict should be node: num Edges
@@ -65,9 +66,9 @@ def makeFixedBins(fullNetwork, numBins):
     return fullNetworkBins
 
 
-# @param fullNetwork
-# @param numBins
-# @return fullNetworkBins
+# @param fullNetwork: gene:gene intearctions dictionary
+# @param numBins: number of bins to separate the bins into by edge density
+# @return numBins: nodes from fullNetwork organized into bins
 def makeQuantileBins(fullNetwork, numBins):
     fullNetworkBins = []
     # dict should be node: num Edges
@@ -88,12 +89,14 @@ def makeQuantileBins(fullNetwork, numBins):
     return fullNetworkBins
 
 
+# assumptions: no node in the lociSubN will have over 10k edges
 # create a subnetwork of the cofunctional network
 # where nodes have similar density to nodes in the loci sub network
-# @param fullNetwork
-# @param fullNetworkBins
-# @return lociSubN
-# assumptions: no node in the lociSubN will have over 10k edges
+# @param fullNetwork: gene:gene interactions dictionary
+# @param fullNetworkBins: nodes from fullNetwork organized into bins by edge density
+# @param lociSubN: subnetworks made from the loci genes
+# @return coFSubnetworks: subnetworks of fullNetwork where nodes random selected to be equivalent to nodes in
+#   loci subnetworks
 def makeCoFSubnetworks(fullNetwork, fullNetworkBins, lociSubN,):
     # for each node in lociSubN
     #   pick node from networkBins where numEdges is similar for both
